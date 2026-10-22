@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 11 • Presidential Power Study Quest</title>
+<style>
+:root{--ink:#3e3455;--muted:#756b88;--pink:#ffd9e8;--lav:#e8ddff;--blue:#dff4ff;--mint:#dcf8eb;--yellow:#fff1bc;--paper:#fffafd;--line:#eadff1;--accent:#a56bd6}
+*{box-sizing:border-box}body{margin:0;font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;color:var(--ink);background:radial-gradient(circle at 10% 10%,#fff0f7,transparent 28%),radial-gradient(circle at 90% 20%,#e9f7ff,transparent 30%),linear-gradient(135deg,#fffafd,#f7f1ff);min-height:100vh}
+header{padding:28px 18px 18px;text-align:center}.pill{display:inline-block;background:#fff;border:1px solid var(--line);padding:7px 13px;border-radius:99px;font-size:.82rem;color:var(--muted)}
+h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;margin:14px 0 8px}header p{max-width:680px;margin:0 auto;color:var(--muted);line-height:1.55}
+.wrap{max-width:1050px;margin:auto;padding:0 16px 36px}.tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:18px 0}
+button,.tab{border:0;border-radius:14px;padding:11px 15px;font:inherit;font-weight:750;cursor:pointer;transition:.18s transform,.18s box-shadow;background:#fff;color:var(--ink);box-shadow:0 4px 0 #e8dced}
+button:hover,.tab:hover{transform:translateY(-2px);box-shadow:0 6px 0 #e8dced}button:focus-visible{outline:3px solid #8d63c5;outline-offset:3px}
+.tab.active,.primary{background:var(--accent);color:white;box-shadow:0 4px 0 #8150b1}.soft-pink{background:var(--pink)}.soft-blue{background:var(--blue)}.soft-mint{background:var(--mint)}.soft-yellow{background:var(--yellow)}
+.panel{background:#ffffffd9;border:1px solid var(--line);border-radius:24px;padding:clamp(18px,4vw,32px);box-shadow:0 12px 35px #6c4a8912;margin:14px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}.stat{padding:14px;border-radius:17px;text-align:center;background:var(--lav)}.stat:nth-child(2){background:var(--mint)}.stat:nth-child(3){background:var(--yellow)}.stat b{font-size:1.45rem;display:block}
+.progress{height:9px;background:#eee5f4;border-radius:20px;overflow:hidden;margin:14px 0}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#f49cc3,#a56bd6);transition:width .3s}
+.kicker{text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;font-weight:800;color:#9a72b6}.question{font-size:clamp(1.2rem,2.5vw,1.65rem);line-height:1.4;margin:10px 0 18px}.answers{display:grid;gap:10px}.answer{text-align:left;background:#fff;border:2px solid var(--line);box-shadow:none;padding:14px 16px;font-weight:600}.answer.correct{border-color:#58b98b;background:#e8fff3}.answer.wrong{border-color:#e78ba9;background:#fff0f5}.answer:disabled{cursor:default;transform:none}
+.feedback{margin-top:14px;padding:14px;border-radius:15px;line-height:1.5;background:#f4efff}.row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.small{font-size:.9rem;color:var(--muted)}.hidden{display:none!important}
+textarea{width:100%;min-height:160px;padding:15px;border:2px solid var(--line);border-radius:16px;font:inherit;line-height:1.5;color:var(--ink);resize:vertical;background:#fff}.checklist{padding-left:20px;line-height:1.8}.flashcard{min-height:210px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#fff0f7,#f0eaff);border-radius:20px;padding:28px;font-size:1.35rem;font-weight:750;line-height:1.5;cursor:pointer}.essay-card{border:1px solid var(--line);border-radius:18px;padding:17px;margin:12px 0;background:#fff}.tag{font-size:.78rem;border-radius:20px;padding:5px 9px;background:var(--blue);font-weight:800}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:15px}
+@media(max-width:600px){.stats{gap:6px}.stat{padding:10px}.panel{border-radius:18px}.row button{flex:1}}
+</style>
+</head>
+<body>
+<header>
+  <span class="pill">🌷 OFFLINE STUDY GAME · CHAPTER 11</span>
+  <h1>Presidential Power<br><span style="color:#a56bd6">Study Quest ✨</span></h1>
+  <p>Practice the Chapter 11 slide topics with randomized questions, flashcards, essay planning, points, and a little celebration. Made to run in your browser—no internet needed.</p>
+</header>
+<main class="wrap">
+  <div class="stats">
+    <div class="stat"><span class="small">⭐ Points</span><b id="points">0</b></div>
+    <div class="stat"><span class="small">🎯 Best streak</span><b id="streak">0</b></div>
+    <div class="stat"><span class="small">🌸 Answered</span><b id="answered">0</b></div>
+  </div>
+  <nav class="tabs">
+    <button class="tab active" data-tab="quiz">🎮 Quiz Quest</button>
+    <button class="tab" data-tab="flash">🪄 Flashcards</button>
+    <button class="tab" data-tab="essay">✍️ Essay Lab</button>
+    <button class="tab" data-tab="review">📚 Quick Review</button>
+  </nav>
+  <section id="quiz" class="panel">
+    <div class="row"><div><span class="kicker">Random practice</span><h2 style="margin:5px 0">Ready, scholar?</h2></div><button class="soft-pink" id="shuffle">🔀 Shuffle questions</button></div>
+    <p class="small">Choose an answer to get feedback. Your score and streak update as you go.</p>
+    <div class="progress"><span id="bar"></span></div>
+    <div id="quizbody"></div>
+  </section>
+  <section id="flash" class="panel hidden">
+    <span class="kicker">Memory garden</span><h2>Flashcards 🌼</h2><p class="small">Tap the card to flip it. Use the arrows to move through the deck.</p>
+    <div id="flashcard" class="flashcard" role="button" tabindex="0" aria-label="Flip flashcard"></div>
+    <div class="row" style="margin-top:15px"><button id="prevcard">← Previous</button><span id="cardcount" class="small"></span><button id="nextcard" class="primary">Next →</button></div>
+  </section>
+  <section id="essay" class="panel hidden">
+    <span class="kicker">Practice like test day</span><h2>Essay Lab ✍️</h2>
+    <p>Choose a prompt, write a practice response, then reveal a checklist of points to compare against your answer. The checklist is a self-check guide, not an automatic grade.</p>
+    <label for="essaypick"><b>Essay prompt</b></label><select id="essaypick" style="width:100%;padding:12px;border:2px solid var(--line);border-radius:12px;font:inherit;margin:8px 0 12px"></select>
+    <div id="essayprompt" class="essay-card"></div>
+    <textarea id="essayanswer" placeholder="Plan or write your response here…"></textarea>
+    <div class="row" style="margin-top:12px"><button class="soft-blue" id="clearessay">Clear response</button><button class="primary" id="showrubric">Reveal self-check checklist</button></div>
+    <div id="rubric" class="feedback hidden"></div>
+  </section>
+  <section id="review" class="panel hidden">
+    <span class="kicker">The big picture</span><h2>Quick Review 🌈</h2>
+    <div id="reviewcontent"></div>
+  </section>
+  <footer>💗 Made for focused studying. Your written essay response stays in this page and is not uploaded anywhere.</footer>
+</main>
+<script>
+const questions = [
+{q:"Which presidential role involves directing the executive branch and supervising federal employees?",a:["Chief executive","Chief diplomat","Chief of state","Party leader"],c:0,e:"The slides describe the president's control of the executive branch and its bureaucracy under the chief executive role."},
+{q:"As commander in chief, the president is the civilian leader of the…",a:["federal judiciary","armed forces","House of Representatives","state governments"],c:1,e:"Commander in chief refers to civilian leadership of the military."},
+{q:"The slides connect the commander-in-chief role with which kind of activity?",a:["Conducting judicial trials","Carrying out covert national-security activities","Certifying state elections","Writing Supreme Court opinions"],c:1,e:"The slides mention covert activities and organizations such as the Central Intelligence Agency in the national-security context."},
+{q:"Which presidential role centers on relations with other countries?",a:["Chief of state","Chief diplomat","Party leader","Chief executive"],c:1,e:"The chief diplomat role concerns foreign relations and representing the United States internationally."},
+{q:"The president's legislative role includes trying to influence Congress and…",a:["vetoing legislation","appointing all members of Congress","overturning Supreme Court decisions","amending state constitutions alone"],c:0,e:"The slides identify the veto as a presidential tool in the legislative process."},
+{q:"What is a pocket veto, as described in the chapter terms and slides?",a:["A veto that Congress can immediately override by a simple majority","A veto that occurs when the president does not sign a bill and Congress adjourns in the relevant period","A veto used only on treaties","A court order blocking a bill"],c:1,e:"The slides explain that a pocket veto can occur when the president does not sign a bill and Congress is not available to return it."},
+{q:"Which role involves ceremonies, welcoming visitors, and honoring national traditions?",a:["Chief of state","Commander in chief","Chief legislator","Chief administrator"],c:0,e:"Chief of state is the ceremonial and symbolic role of the president."},
+{q:"As party leader, a president may help candidates from the same party win…",a:["only federal court seats","gubernatorial and other elections","foreign parliamentary elections","Supreme Court cases"],c:1,e:"The slides mention helping other candidates, including gubernatorial candidates, win elections."},
+{q:"Which amendment limits the number of times a person may be elected president?",a:["Twelfth Amendment","Twentieth Amendment","Twenty-second Amendment","Twenty-fifth Amendment"],c:2,e:"The Twenty-second Amendment establishes presidential term limits. The slides' term description refers to a vice president who serves more than two years of another president's term counting toward the limit."},
+{q:"Under the Twenty-second Amendment, a person elected president may generally be elected how many times?",a:["Once","Twice","Three times","Without limit"],c:1,e:"The amendment generally limits a person to two presidential elections, with a special rule for succession after another president's term has begun."},
+{q:"What does impeachment mean in the chapter terms?",a:["A formal accusation of wrongdoing against an official","A popular vote to remove a president","A Supreme Court ruling that a law is unconstitutional","A presidential order to Congress"],c:0,e:"The glossary defines impeachment as formally accusing officials, including high officials, of misconduct."},
+{q:"Which statement best captures the role of Congress in impeachment?",a:["Congress has no role once a president is accused","Congress can bring impeachment charges; removal requires the constitutional process","Congress can remove a president by a simple public petition","The vice president alone decides whether removal occurs"],c:1,e:"The slides describe Congress's impeachment power as an ultimate check on a president."},
+{q:"An executive agreement is best described as…",a:["a binding constitutional amendment","a nonbinding agreement made with another country to address a particular policy","a Supreme Court precedent","a bill passed by both houses of Congress"],c:1,e:"The chapter terms define an executive agreement as a nonbinding agreement with another country on a particular policy."},
+{q:"The State of the Union address is the president's report to…",a:["the Supreme Court about pending cases","Congress about the condition of the country and the president's priorities","state governors about court appointments","the United Nations about military budgets"],c:1,e:"The chapter glossary describes the State of the Union as the president's message to Congress about the state of the country and policy goals."},
+{q:"What is the main purpose of the Twenty-fifth Amendment?",a:["To establish presidential term limits","To address presidential and vice-presidential succession and presidential inability","To create the Cabinet","To establish judicial review"],c:1,e:"The slides' glossary describes rules for filling a vice-presidential vacancy and addressing presidential inability."},
+{q:"If the vice presidency becomes vacant, the Twenty-fifth Amendment provides for a nominee who must be confirmed by…",a:["the Supreme Court only","Congress through the constitutional approval process","state governors","the Cabinet without Congress"],c:1,e:"The slides state that a vice-presidential vacancy is filled through appointment and confirmation by Congress."},
+{q:"What is the Executive Office of the President (EOP)?",a:["The first level beneath the president that supports presidential work and policymaking","A committee of state governors","The legislative staff of the House","The federal court system"],c:0,e:"The slides describe the EOP as a group of offices and staff supporting the president."},
+{q:"Which EOP organization helps coordinate national-security and intelligence policy?",a:["Office of Management and Budget","National Security Council","Federal Election Commission","House Rules Committee"],c:1,e:"The National Security Council is identified in the slides as working with national-security and intelligence information and policy."},
+{q:"What is the Office of Management and Budget (OMB) responsible for, according to the slides?",a:["Preparing the president's annual budget proposal for Congress","Confirming federal judges","Conducting criminal trials","Managing presidential elections"],c:0,e:"The slides describe OMB as preparing the president's annual budget and reviewing agency requests."},
+{q:"Cabinet members generally lead…",a:["executive departments","congressional committees","federal courts","state legislatures"],c:0,e:"The Cabinet consists largely of the heads of executive departments who advise the president."},
+{q:"How are directorships of many independent agencies filled?",a:["Chosen by popular vote","Nominated by the president and confirmed by the Senate","Selected by the Supreme Court","Assigned by state legislatures"],c:1,e:"The slides state that agency directors are nominated by the president and confirmed by the Senate."},
+{q:"Why must presidents be careful about using their power?",a:["The Constitution and other institutions place limits on presidential authority","The president can never issue directives","Congress has no constitutional powers","Presidents control every branch equally"],c:0,e:"The governing-wisely section emphasizes that presidential power has limits and presidents must seek support from other institutions."},
+{q:"Which statement about popularity and presidential greatness matches the slides?",a:["Popularity alone proves greatness","The slides say popularity is not the same as greatness","A president is great only if reelected","Greatness is determined only by Cabinet size"],c:1,e:"The slides explicitly distinguish popularity from greatness and discuss how assessments depend on perspective and challenges faced."},
+{q:"Which presidential tool is described as a directive that can have the force of law?",a:["Executive order","Executive agreement","State of the Union address","Pocket veto"],c:0,e:"The chapter terms describe executive orders as presidential directives that have the effect of law."},
+{q:"The vice president's constitutional responsibilities include presiding over the Senate and…",a:["serving as chief justice","succeeding to the presidency if necessary","appointing every Cabinet member independently","vetoing Supreme Court rulings"],c:1,e:"The slides list presiding over the Senate, including its tie-breaking vote, and succession to the presidency."},
+{q:"The president's role as chief executive includes supervising the…",a:["executive bureaucracy","state supreme courts","private businesses","national political parties only"],c:0,e:"The slides connect the chief executive role with control and supervision of the bureaucracy and its employees."},
+{q:"What does the CIA do in the chapter's description?",a:["Serves as the chief agency for foreign intelligence","Prepares the federal budget","Runs the Senate","Confirms executive appointments"],c:0,e:"The glossary describes the Central Intelligence Agency as the chief agency for intelligence in foreign affairs."},
+{q:"Which choice is the clearest example of the president acting as chief of state?",a:["Meeting with foreign leaders to negotiate policy","Signing a bill into law","Attending a national ceremony and laying a wreath","Directing military operations"],c:2,e:"Ceremonies and symbolic duties are examples of the chief-of-state role."},
+{q:"What is the best way to study a possible essay question using these slides?",a:["Memorize one sentence and ignore examples","Define the concept, explain its importance, and use slide examples","Write only personal opinions","Include facts not connected to the prompt"],c:1,e:"Strong essay practice uses accurate terms, explanation, and relevant examples from the course slides."}
+];
+const cards=[
+["Chief executive","The president leads the executive branch and supervises the federal bureaucracy and its employees."],
+["Commander in chief","The president is the civilian leader of the armed forces and has responsibilities involving military and national-security activity."],
+["Chief diplomat","The president represents the United States in foreign affairs and works with other countries."],
+["Chief legislator","The president tries to influence legislation and can use tools such as the veto."],
+["Chief of state","The president performs ceremonial and symbolic duties, such as receiving visitors and honoring national traditions."],
+["Party leader","The president supports the president's political party and may campaign for other candidates."],
+["Twenty-second Amendment","Limits presidential elections to two, with a special rule for someone who succeeds to a partial term."],
+["Impeachment","The formal accusation of misconduct against an official; it is part of a constitutional process."],
+["Executive agreement","A nonbinding agreement with another country concerning a particular policy."],
+["State of the Union (SOTU)","The president's message to Congress about the condition of the country and presidential priorities."],
+["Executive order","A presidential directive that has the effect of law."],
+["Twenty-fifth Amendment","Addresses vice-presidential vacancies and presidential inability or succession."],
+["Executive Office of the President (EOP)","Offices and staff that support the president's work and policymaking."],
+["National Security Council (NSC)","Advises and coordinates around national-security policy and intelligence information."],
+["Office of Management and Budget (OMB)","Helps prepare the president's annual budget proposal for Congress and reviews agency budget requests."],
+["Cabinet","Leaders of executive departments who advise the president."],
+["Central Intelligence Agency (CIA)","The chief agency for foreign intelligence, as defined in the chapter glossary."],
+["Pocket veto","A veto that can occur when the president does not sign a bill and Congress adjourns in the relevant period."]
+];
+const essays=[
+{p:"Explain at least four roles of the president and give an example of what the president does in each role.",t:"Presidential roles",c:["Name and explain multiple roles (for example, chief executive, commander in chief, chief diplomat, chief legislator, chief of state, party leader).","Explain what each role means rather than only listing titles.","Use relevant examples, such as supervising the bureaucracy, foreign relations, vetoes, or ceremonial duties.","Organize the response with a clear introduction and conclusion."]},
+{p:"Explain how the Constitution and Congress limit presidential power. Include the veto, impeachment, and the idea of checks and balances.",t:"Checks and balances",c:["Explain that presidential power is not unlimited.","Describe the veto and how Congress may respond to it.","Define impeachment as a formal accusation and describe Congress's role in the process.","Connect the examples to checks and balances and constitutional authority."]},
+{p:"Compare the Twenty-second and Twenty-fifth Amendments. What different presidential issues does each address?",t:"Constitutional amendments",c:["Explain that the Twenty-second Amendment limits presidential elections/terms.","Explain that the Twenty-fifth Amendment addresses succession, vice-presidential vacancies, and presidential inability.","Clearly distinguish term limits from continuity of government.","Use accurate terminology from the slides."]},
+{p:"Describe the Executive Office of the President, the National Security Council, the Office of Management and Budget, and the Cabinet.",t:"Executive organization",c:["Define the EOP as support offices and staff for the president.","Explain the NSC's national-security and intelligence-policy role.","Explain OMB's role in the president's budget proposal and agency requests.","Explain that Cabinet members lead executive departments and advise the president."]},
+{p:"What does it mean to govern wisely as president? Discuss limits on authority and why popularity does not automatically equal greatness.",t:"Governing wisely",c:["Explain that presidents must work within constitutional and institutional limits.","Discuss the need to seek support or cooperation from others.","Distinguish popularity from greatness, using the slides' framing.","Build a reasoned argument supported by chapter concepts."]},
+{p:"Explain how the vice president's role has developed and describe the constitutional rules for a vice-presidential vacancy or presidential inability.",t:"The vice presidency",c:["Mention the vice president's Senate role and succession role.","Explain the Twenty-fifth Amendment's process for filling a vice-presidential vacancy, including presidential nomination and congressional confirmation.","Describe the amendment's role when a president is unable to carry out duties.","Keep the vacancy and inability procedures distinct."]}
+];
+let order=[], idx=0, points=0, answered=0, streak=0,best=0,locked=false,cardIndex=0,flipped=false,selectedEssay=0;
+const $=id=>document.getElementById(id);
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function startQuiz(){order=shuffle(questions.map((_,i)=>i));idx=0;locked=false;renderQ()}
+function renderQ(){locked=false;let q=questions[order[idx]];$('bar').style.width=(idx/questions.length*100)+'%';$('quizbody').innerHTML=`<div class="row"><span class="tag">Question ${idx+1} / ${questions.length}</span><span class="small">+10 points for a correct answer</span></div><div class="question">${q.q}</div><div class="answers">${shuffle(q.a.map((v,i)=>({v,correct:i===q.c}))).map((o,i)=>`<button class="answer" data-correct="${o.correct}">${String.fromCharCode(65+i)}. ${o.v}</button>`).join('')}</div><div id="feedback" class="feedback hidden"></div><div class="row" style="margin-top:16px"><span class="small">Tip: explain the concept in your own words after answering.</span><button id="nextq" class="primary hidden">${idx===questions.length-1?'Finish round ✨':'Next question →'}</button></div>`;
+document.querySelectorAll('.answer').forEach(b=>b.addEventListener('click',()=>choose(b)));
+$('nextq').addEventListener('click',()=>{if(idx<order.length-1){idx++;renderQ()}else finishQuiz()})}
+function choose(btn){if(locked)return;locked=true;let correct=btn.dataset.correct==='true';document.querySelectorAll('.answer').forEach(b=>{b.disabled=true;if(b.dataset.correct==='true')b.classList.add('correct')});if(!correct)btn.classList.add('wrong');let q=questions[order[idx]];$('feedback').classList.remove('hidden');$('feedback').innerHTML=`<b>${correct?'🌟 You got it!':'🌷 Keep growing!'}</b> ${q.e}`;if(correct){points+=10;streak++;best=Math.max(best,streak)}else streak=0;answered++;updateStats();$('bar').style.width=((idx+1)/questions.length*100)+'%';$('nextq').classList.remove('hidden')}
+function finishQuiz(){$('quizbody').innerHTML=`<div style="text-align:center;padding:20px"><div style="font-size:3rem">🎉🌸✨</div><h2>Round complete!</h2><p>You answered ${answered} question${answered===1?'':'s'} so far and earned ${points} points.</p><p>Keep going with flashcards or essay practice to make the knowledge stick.</p><button class="primary" id="again">Play a fresh randomized round</button></div>`;$('again').onclick=()=>startQuiz()}
+function updateStats(){$('points').textContent=points;$('streak').textContent=best;$('answered').textContent=answered}
+function showTab(name){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));['quiz','flash','essay','review'].forEach(n=>$(n).classList.toggle('hidden',n!==name))}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));$('shuffle').onclick=()=>startQuiz();
+function renderCard(){let c=cards[cardIndex];$('flashcard').innerHTML=flipped?`<span><span class="kicker">Answer</span><br>${c[1]}</span>`:`<span><span class="kicker">Tap to reveal</span><br>${c[0]}<br>🌷</span>`;$('cardcount').textContent=`Card ${cardIndex+1} of ${cards.length}`;}
+function flip(){flipped=!flipped;renderCard()}$('flashcard').onclick=flip;$('flashcard').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}};$('prevcard').onclick=()=>{cardIndex=(cardIndex-1+cards.length)%cards.length;flipped=false;renderCard()};$('nextcard').onclick=()=>{cardIndex=(cardIndex+1)%cards.length;flipped=false;renderCard()};
+essays.forEach((e,i)=>{let o=document.createElement('option');o.value=i;o.textContent=e.t;$('essaypick').appendChild(o)});function renderEssay(){selectedEssay=+$('essaypick').value;let e=essays[selectedEssay];$('essayprompt').innerHTML=`<span class="tag">${e.t}</span><p style="font-size:1.1rem;line-height:1.5">${e.p}</p>`;$('rubric').classList.add('hidden');$('rubric').innerHTML=`<b>Self-check checklist 🌼</b><ul class="checklist">${e.c.map(x=>`<li>${x}</li>`).join('')}</ul><p class="small">Aim to explain each point in your own words and use only details you can support from your class material.</p>`}
+$('essaypick').onchange=renderEssay;$('showrubric').onclick=()=>{$('rubric').classList.remove('hidden');$('rubric').scrollIntoView({behavior:'smooth',block:'nearest'})};$('clearessay').onclick=()=>{$('essayanswer').value='';$('rubric').classList.add('hidden')};
+const reviews=[
+["I. Presidential Power","Roles covered in the slides include chief executive, commander in chief, chief diplomat, chief legislator, chief of state, and party leader. The slides also discuss presidential term limits, impeachment, executive orders, and the use of presidential power."],
+["II. Executive Organization","Topics include the vice president; the Executive Office of the President (EOP); the National Security Council (NSC); the Office of Management and Budget (OMB); the Cabinet; and administrative agencies."],
+["III. Governing Wisely","The slides emphasize avoiding overreach and assessing presidents carefully. Popularity alone is not the same as greatness; presidents face challenges and limits on their authority."],
+["Chapter 11 terms","Covert activities; Central Intelligence Agency (CIA); executive agreement; State of the Union (SOTU); Twenty-second Amendment; impeachment; executive order; Twenty-fifth Amendment; Executive Office of the President; National Security Council; Office of Management and Budget."]
+];$('reviewcontent').innerHTML=reviews.map(r=>`<div class="essay-card"><h3>${r[0]}</h3><p style="line-height:1.7">${r[1]}</p></div>`).join('');
+renderCard();renderEssay();startQuiz();
+</script>
+</body></html>
